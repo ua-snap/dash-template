@@ -12,8 +12,8 @@ from random import randint
 
 server = flask.Flask(__name__)
 server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
-
 app = dash.Dash(__name__, server=server)
+
 # AWS Elastic Beanstalk looks for application by default,
 # if this variable (application) isn't set you will get a WSGI error.
 application = app.server
