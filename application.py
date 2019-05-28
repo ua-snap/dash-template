@@ -6,8 +6,14 @@ Template for SNAP Dash apps.
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import flask
+import os
+from random import randint
 
-app = dash.Dash(__name__)
+server = flask.Flask(__name__)
+server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
+
+app = dash.Dash(__name__, server=server)
 # AWS Elastic Beanstalk looks for application by default,
 # if this variable (application) isn't set you will get a WSGI error.
 application = app.server
@@ -311,4 +317,6 @@ app.layout = html.Div(
 )
 
 if __name__ == "__main__":
-    application.run(debug=False, port=8080)
+    port = int(os.environ.get('PORT', 8080))
+    debug = os.environ.get('DEBUG', False)
+    app.server.run(debug=debug, port=port, threaded=True)
