@@ -17,7 +17,6 @@ app = dash.Dash(__name__, server=server)
 # AWS Elastic Beanstalk looks for application by default,
 # if this variable (application) isn't set you will get a WSGI error.
 application = app.server
-
 app.title = "SNAP Dash Template"
 
 button_primary = html.Button("Primary", className="button")
